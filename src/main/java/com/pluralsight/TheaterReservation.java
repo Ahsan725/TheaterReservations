@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TheaterReservation {
@@ -24,15 +26,26 @@ public class TheaterReservation {
         last = names[1];
 
         //getting the date
-        System.out.println("What date would you like to reserve tickets for?");
+        System.out.println("What date would you like to reserve tickets for? (e.g., 5/13/2023)");
         date = sc.nextLine();
+
+        // How the user enters the date (M/d/yyyy handles single or double digits)
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        // This then convert it to what I want to display
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Parse the raw string and then immediately format it to the string
+        String formattedDate = LocalDate
+                .parse(date, inputFormatter)
+                .format(outputFormatter);
+
 
         //get the number of tickets
         System.out.println("How many tickets will you need?");
         tickets = sc.nextInt();
         //if the ticket is more than one we change the moreThanOne variable to use 's'. There are many ways to do this
         // I just think this was the mot explicit way to do it.
-        if (tickets > 1){
+        if (tickets > 1) {
             moreThanOne = "tickets";
         }
 
